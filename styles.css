@@ -7,13 +7,15 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #2e2d2d;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
-
+p {
+    color: #fff;
+}
 /* Container */
 .container {
     background-color: #fff;
