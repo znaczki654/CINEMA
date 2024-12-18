@@ -13,12 +13,9 @@ body {
     align-items: center;
     height: 100vh;
 }
-p {
-    color: #fff;
-}
 /* Container */
 .container {
-    background-color: #fff;
+    background-color: #cdcdcd;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,11 +33,11 @@ h1 {
 /* Verification Details */
 .verification-details p {
     font-size: 16px;
-    color: #333;
+    color: #fff;
     margin: 10px 0;
 }
 
 .verification-details strong {
     font-weight: bold;
-    color: #333;
+    color: #fff;
 }
