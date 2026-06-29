@@ -467,30 +467,46 @@ summary{
 
 function showTab(id, btn){
 
-    document.querySelectorAll('.section')
-        .forEach(sec => sec.classList.remove('active'));
+    // zapamiętanie zakładki
+    localStorage.setItem("activeTab", id);
 
+    // ukryj sekcje
+    document.querySelectorAll('.section')
+        .forEach(sec => {
+            sec.classList.remove('active');
+            sec.style.display = 'none';
+        });
+
+    // navbar reset
     document.querySelectorAll('.nav-btn')
         .forEach(b => b.classList.remove('active'));
 
     const el = document.getElementById(id);
 
-    el.style.display = "block";
+    // pokaż sekcję BEZ skoku layoutu
+    el.style.display = 'block';
 
-    setTimeout(() => {
+    // wymuszenie reflow (stabilizuje animacje i scroll bug)
+    void el.offsetHeight;
+
+    requestAnimationFrame(() => {
         el.classList.add('active');
-    }, 10);
+    });
 
     btn.classList.add('active');
 
-    // 👑 ANIMACJA PIECZĄTEK
+    // VIP ANIMACJA – tylko raz
     if(id === "vip"){
-        animateStamps();
+        animateStampsOnce();
     }
 }
 
+let stampsAnimated = false;
 
-function animateStamps(){
+function animateStampsOnce(){
+
+    if(stampsAnimated) return; // 🔥 blokada duplikacji
+    stampsAnimated = true;
 
     const stamps = document.querySelectorAll('.stamp');
 
@@ -498,15 +514,15 @@ function animateStamps(){
 
         setTimeout(() => {
 
-            stamp.classList.add('used', 'pop');
+            if(!stamp.classList.contains('used')){
+                stamp.classList.add('used', 'pop');
+            }
 
             setTimeout(() => {
                 stamp.classList.remove('pop');
-            }, 350);
+            }, 300);
 
-            updateStampText(i + 1);
-
-        }, i * 300); // odstęp animacji
+        }, i * 250);
     });
 }
 
