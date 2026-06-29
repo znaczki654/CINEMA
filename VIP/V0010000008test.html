@@ -473,35 +473,31 @@ let stampsAnimated = false;
 
 function showTab(id, btn){
 
-    // zapisz aktywną zakładkę
     localStorage.setItem("activeTab", id);
 
-    // ukryj wszystkie sekcje
     document.querySelectorAll('.section').forEach(sec => {
         sec.classList.remove('active');
         sec.style.display = 'none';
     });
 
-    // reset navbar
     document.querySelectorAll('.nav-btn').forEach(b => {
         b.classList.remove('active');
     });
 
-    // pokaż wybraną sekcję
     const el = document.getElementById(id);
     el.style.display = 'block';
 
-    // animacja wejścia (stabilna)
     requestAnimationFrame(() => {
         el.classList.add('active');
     });
 
-    // aktywny przycisk
     btn.classList.add('active');
 
-    // VIP ANIMACJA
+    // 🔥 KLUCZ: odpalamy TYLKO tutaj
     if(id === "vip"){
-        animateStampsOnce();
+        setTimeout(() => {
+            animateStamps();
+        }, 150); // mały delay = pewny render DOM
     }
 }
 
