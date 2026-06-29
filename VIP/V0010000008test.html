@@ -514,23 +514,21 @@ function animateStampsOnce(){
 
     const stamps = document.querySelectorAll('.stamp');
 
-    // ile zapisane w pamięci
+    // 1. pobierz stan
     let saved = parseInt(localStorage.getItem("vipStamps") || "0");
-
-    // zabezpieczenie zakresu
     saved = Math.min(saved, stamps.length);
 
-    // RESET DOM (ważne — usuwa bug 4→5 i mruganie)
+    // 2. reset UI
     stamps.forEach(s => {
         s.classList.remove("used", "pop");
     });
 
-    // odtwórz zapisany stan (bez animacji)
+    // 3. odtwórz stan BEZ animacji
     for(let i = 0; i < saved; i++){
         stamps[i].classList.add("used");
     }
 
-    // animacja tylko raz na wejście do strony
+    // 4. jeśli już animowane → STOP
     if(sessionStorage.getItem("vipAnimPlayed")) return;
     sessionStorage.setItem("vipAnimPlayed", "1");
 
@@ -541,8 +539,6 @@ function animateStampsOnce(){
         if(i >= stamps.length) return;
 
         stamps[i].classList.add("used", "pop");
-
-        localStorage.setItem("vipStamps", i + 1);
 
         setTimeout(() => {
             stamps[i].classList.remove("pop");
