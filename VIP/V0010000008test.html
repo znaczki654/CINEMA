@@ -464,28 +464,54 @@ summary{
 
 <script>
 
-function addStamp(){
-    const stamps = document.querySelectorAll('.stamp');
-    for(let s of stamps){
-        if(!s.classList.contains('used')){
-            s.classList.add('used');
-            break;
-        }
+
+function showTab(id, btn){
+
+    document.querySelectorAll('.section')
+        .forEach(sec => sec.classList.remove('active'));
+
+    document.querySelectorAll('.nav-btn')
+        .forEach(b => b.classList.remove('active'));
+
+    const el = document.getElementById(id);
+
+    el.style.display = "block";
+
+    setTimeout(() => {
+        el.classList.add('active');
+    }, 10);
+
+    btn.classList.add('active');
+
+    // 👑 ANIMACJA PIECZĄTEK
+    if(id === "vip"){
+        animateStamps();
     }
 }
 
-function showTab(id,btn){
+function updateStampText(count){
+    document.getElementById("stampText").innerText =
+    `Seanse VIP: ${count} / 5 wykorzystane`;
+}
 
+function animateStamps(){
 
-    document.querySelectorAll('.section')
-        .forEach(sec=>sec.classList.remove('active'));
+    const stamps = document.querySelectorAll('.stamp');
 
-    document.querySelectorAll('.nav-btn')
-        .forEach(btn=>btn.classList.remove('active'));
+    stamps.forEach((stamp, i) => {
 
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+        setTimeout(() => {
 
+            stamp.classList.add('used', 'pop');
+
+            setTimeout(() => {
+                stamp.classList.remove('pop');
+            }, 350);
+
+            updateStampText(i + 1);
+
+        }, i * 300); // odstęp animacji
+    });
 }
 
 function copyBlik(){
