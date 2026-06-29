@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
 <title>JANEK VIP</title>
 
@@ -465,65 +465,18 @@ summary{
 <script>
 
 
-function showTab(id, btn){
+function showTab(id,btn){
 
-    // zapamiętanie zakładki
-    localStorage.setItem("activeTab", id);
 
-    // ukryj sekcje
     document.querySelectorAll('.section')
-        .forEach(sec => {
-            sec.classList.remove('active');
-            sec.style.display = 'none';
-        });
+        .forEach(sec=>sec.classList.remove('active'));
 
-    // navbar reset
     document.querySelectorAll('.nav-btn')
-        .forEach(b => b.classList.remove('active'));
+        .forEach(btn=>btn.classList.remove('active'));
 
-    const el = document.getElementById(id);
-
-    // pokaż sekcję BEZ skoku layoutu
-    el.style.display = 'block';
-
-    // wymuszenie reflow (stabilizuje animacje i scroll bug)
-    void el.offsetHeight;
-
-    requestAnimationFrame(() => {
-        el.classList.add('active');
-    });
-
+    document.getElementById(id).classList.add('active');
     btn.classList.add('active');
 
-    // VIP ANIMACJA – tylko raz
-    if(id === "vip"){
-        animateStampsOnce();
-    }
-}
-
-let stampsAnimated = false;
-
-function animateStampsOnce(){
-
-    if(stampsAnimated) return; // 🔥 blokada duplikacji
-    stampsAnimated = true;
-
-    const stamps = document.querySelectorAll('.stamp');
-
-    stamps.forEach((stamp, i) => {
-
-        setTimeout(() => {
-
-            if(!stamp.classList.contains('used')){
-                stamp.classList.add('used', 'pop');
-            }
-
-            setTimeout(() => {
-                stamp.classList.remove('pop');
-            }, 300);
-
-        }, i * 250);
-    });
 }
 
 function copyBlik(){
