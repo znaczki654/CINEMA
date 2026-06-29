@@ -412,14 +412,14 @@ summary{
             <br>
 
             <div class="stamps">
-                <div class="stamp"></div>
+                <div class="stamp used"></div>
                 <div class="stamp"></div>
                 <div class="stamp"></div>
                 <div class="stamp"></div>
                 <div class="stamp"></div>
             </div>
 
-<p>Seanse VIP: 4 / 5.</p>
+<p>Seanse VIP: 1 / 5.</p>
 <p>5 Seans VIP 50% taniej.</p>
 
 
@@ -503,51 +503,10 @@ function showTab(id, btn){
 
 
 /* =========================
-   STAMPS SYSTEM (VIP)
+   STAMPS SYSTEM (VIP) - ANIMATION
 ========================= */
 
-function animateStamps(){
 
-    const stamps = document.querySelectorAll('.stamp');
-
-    let saved = parseInt(localStorage.getItem("vipStamps"));
-
-    if(isNaN(saved)){
-        saved = 0;
-        localStorage.setItem("vipStamps", "0");
-    }
-
-    saved = Math.min(saved, stamps.length);
-
-    // 1. RESET UI (ukryj wszystko)
-    stamps.forEach(s => {
-        s.classList.remove("used", "pop");
-        s.style.opacity = "0";
-        s.style.transform = "scale(0.5)";
-    });
-
-    // 2. ANIMACJA PO KOLEI (TO JEST KLUCZ)
-    let i = 0;
-
-    function revealNext(){
-
-        if(i >= saved) return;
-
-        const el = stamps[i];
-
-        el.style.transition = "all .25s ease";
-        el.style.opacity = "1";
-        el.style.transform = "scale(1)";
-
-        el.classList.add("used");
-
-        i++;
-
-        setTimeout(revealNext, 120); // tempo animacji
-    }
-
-    revealNext();
-}
 
 /* =========================
    RESTORE LAST TAB ON LOAD
