@@ -466,7 +466,6 @@ summary{
 <script>
 
 
-let stampsAnimated = false;
 
 /* =========================
    NAVIGATION (TABS)
@@ -511,36 +510,30 @@ function animateStamps(){
 
     const stamps = document.querySelectorAll('.stamp');
 
-    let saved = parseInt(localStorage.getItem("vipStamps") || "4"); 
+    let saved = parseInt(localStorage.getItem("vipStamps") || "4");
     saved = Math.min(saved, stamps.length);
 
-    // RESET UI
+    // 1. RESET WSZYSTKIEGO (KLUCZ)
     stamps.forEach(s => {
         s.classList.remove("used", "pop");
     });
 
-    // odtwórz stan (BEZ animacji)
+    // 2. ustaw STAN STAŁY (bez animacji)
     for(let i = 0; i < saved; i++){
         stamps[i].classList.add("used");
     }
 
-    // animuj tylko „do końca”
-    let i = saved;
+    // 3. ANIMUJ TYLKO KOLEJNĄ (NIE ZMIENIAJ STANU NA STAŁE)
+    if(saved < stamps.length){
 
-    function step(){
+        const nextIndex = saved;
 
-        if(i >= stamps.length) return;
-
-        stamps[i].classList.add("used", "pop");
+        stamps[nextIndex].classList.add("pop");
 
         setTimeout(() => {
-            stamps[i].classList.remove("pop");
-            i++;
-            step();
-        }, 250);
+            stamps[nextIndex].classList.remove("pop");
+        }, 400);
     }
-
-    step();
 }
 
 
