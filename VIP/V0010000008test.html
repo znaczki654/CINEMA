@@ -510,8 +510,12 @@ function animateStamps(){
 
     const stamps = document.querySelectorAll('.stamp');
 
-    let saved = parseInt(localStorage.getItem("vipStamps") || "0");
-    saved = Math.min(saved, stamps.length);
+    let saved = parseInt(localStorage.getItem("vipStamps"));
+
+    if(isNaN(saved)){
+        saved = 0;
+        localStorage.setItem("vipStamps", "0");
+    }
 
     // 1. RESET WSZYSTKIEGO (KLUCZ)
     stamps.forEach(s => {
