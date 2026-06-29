@@ -464,7 +464,7 @@ function addStamp(){
 
 function showTab(id,btn){
 
-/*
+
     document.querySelectorAll('.section')
         .forEach(sec=>sec.classList.remove('active'));
 
@@ -473,24 +473,9 @@ function showTab(id,btn){
 
     document.getElementById(id).classList.add('active');
     btn.classList.add('active');
-*/
 
-    document.querySelectorAll('.section').forEach(sec=>{
-        sec.classList.remove('active');
-    });
 
-    document.querySelectorAll('.nav-btn').forEach(b=>{
-        b.classList.remove('active');
-    });
 
-    const el = document.getElementById(id);
-
-    el.style.display = "block";
-    setTimeout(()=>{
-        el.classList.add('active');
-    },10);
-
-    btn.classList.add('active');
 }
 
 function copyBlik(){
