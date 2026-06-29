@@ -515,30 +515,32 @@ function animateStamps(){
     let saved = parseInt(localStorage.getItem("vipStamps"));
 
     if(isNaN(saved)){
-        saved = 4;
+        saved = 0;
+        localStorage.setItem("vipStamps", "0");
     }
 
-    saved = Math.min(saved, stamps.length);
+    // 🔥 NAJWAŻNIEJSZE: ukryj wszystko NA START (żeby nie było flickera 4)
+    stamps.forEach(s => {
+        s.classList.remove("used", "pop");
+        s.style.opacity = "0";
+        s.style.transform = "scale(0.6)";
+    });
 
-    // RESET UI
-    stamps.forEach(s => s.classList.remove("used", "pop"));
+    // 🔥 render po frame (eliminuje "flash 4")
+    requestAnimationFrame(() => {
 
-    // render stanu
-    for(let i = 0; i < saved; i++){
-        stamps[i].classList.add("used");
-    }
+        for(let i = 0; i < saved; i++){
+            stamps[i].classList.add("used");
+            stamps[i].style.opacity = "1";
+            stamps[i].style.transform = "scale(1)";
+        }
 
-    // animuj tylko NASTĘPNĄ
-    if(saved < stamps.length){
-
-        const el = stamps[saved];
-
-        el.classList.add("pop");
-
-        setTimeout(() => {
-            el.classList.remove("pop");
-        }, 350);
-    }
+        // animacja next stamp
+        if(saved < stamps.length){
+            const el = stamps[saved];
+            el.classList.add("pop");
+        }
+    });
 }
 
 /* =========================
