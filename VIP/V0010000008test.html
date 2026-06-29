@@ -76,10 +76,17 @@ header p{
 
 .section{
     display:none;
+    /* added */
+    opacity:0;
+    transform:translateY(10px);
+    transition:all .25s ease;
 }
 
 .section.active{
     display:block;
+    /* added */
+    opacity:1;
+    transform:translateY(0);
 }
 
 .card{
@@ -97,8 +104,35 @@ header p{
 }
 
 .vip{
+    /*
     color:#FFD700;
     font-weight:bold;
+    */
+    background: linear-gradient(90deg, #FFD700, #fff3a0, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight:bold;
+}
+
+.stamps{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+}
+
+.stamp{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:2px solid #FFD700;
+    opacity:.3;
+    transition:.3s;
+}
+
+.stamp.used{
+    background:#FFD700;
+    opacity:1;
+    transform:scale(1.05);
 }
 
 .ticket-title{
@@ -366,6 +400,18 @@ summary{
 
             <br>
 
+            <div class="stamps">
+                <div class="stamp used"></div>
+                <div class="stamp used"></div>
+                <div class="stamp used"></div>
+                <div class="stamp used"></div>
+                <div class="stamp"></div>
+            </div>
+
+<p>Seanse VIP: 4 / 5 wykorzystane</p>
+
+            <br>
+
             <div class="benefit">🛋 Gwarancja kanapy</div>
             <div class="benefit">🥤 Couch Console</div>
             <div class="benefit">⚡ Priorytetowa obsługa</div>
@@ -405,6 +451,16 @@ summary{
 </div>
 
 <script>
+
+function addStamp(){
+    const stamps = document.querySelectorAll('.stamp');
+    for(let s of stamps){
+        if(!s.classList.contains('used')){
+            s.classList.add('used');
+            break;
+        }
+    }
+}
 
 function showTab(id,btn){
 
