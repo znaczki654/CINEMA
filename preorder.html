@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>JANEK VIP</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#1a1a1a;
+    color:white;
+    font-family:Arial,sans-serif;
+}
+
+header{
+    background:#111;
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid #333;
+}
+
+header h1{
+    color:#FFD700;
+    margin-bottom:8px;
+}
+
+header p{
+    color:#ccc;
+}
+
+.navbar{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+    background:#111;
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid #333;
+}
+
+.nav-btn{
+    background:#222;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    background:#333;
+}
+
+.nav-btn.active{
+    background:#FFD700;
+    color:black;
+    font-weight:bold;
+}
+
+.content{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.section{
+    display:none;
+    /* added */
+    opacity:0;
+    transform:translateY(10px);
+    transition:all .25s ease;
+}
+
+.section.active{
+    display:block;
+    /* added */
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card{
+    background:#111;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+.status{
+    color:#4CAF50;
+    font-size:24px;
+    margin-bottom:15px;
+}
+
+.vip{
+    /*
+    color:#FFD700;
+    font-weight:bold;
+    */
+    background: linear-gradient(90deg, #FFD700, #fff3a0, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight:bold;
+}
+
+.stamps{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+}
+
+.stamp{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:2px solid #FFD700;
+    opacity:.3;
+    transform:scale(0.8);
+    transition:all .25s ease;
+}
+
+.stamp.used{
+    background:#FFD700;
+    opacity:1;
+    transform:scale(1.15);
+}
+
+.stamp.pop{
+    animation:popStamp .35s ease;
+}
+
+@keyframes popStamp{
+    0%{ transform:scale(0.2); opacity:0; }
+    70%{ transform:scale(1.3); opacity:1; }
+    100%{ transform:scale(1.15); }
+}
+
+.ticket-title{
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.details{
+    margin-top:15px;
+}
+
+details{
+    margin-top:15px;
+}
+
+summary{
+    cursor:pointer;
+    color:#FFD700;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.menu-item h3{
+    color:#FFD700;
+    margin-bottom:10px;
+}
+
+.menu-item p{
+    margin:8px 0;
+}
+
+.countdown{
+    text-align:center;
+}
+
+.movie-title{
+    font-size:28px;
+    margin-bottom:25px;
+    color:#FFD700;
+}
+
+.timer{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.time-box{
+    background:#222;
+    padding:20px;
+    border-radius:12px;
+    min-width:90px;
+}
+
+.time-box h2{
+    font-size:32px;
+}
+
+.time-box span{
+    color:#aaa;
+}
+
+.benefit{
+    padding:12px;
+    border-bottom:1px solid #333;
+}
+
+.benefit:last-child{
+    border-bottom:none;
+}
+
+.copy-btn{
+    margin-top:15px;
+    background:#FFD700;
+    color:black;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.copy-btn:hover{
+    opacity:.9;
+}
+
+.blik{
+    font-size:32px;
+    font-weight:bold;
+    color:#FFD700;
+    letter-spacing:3px;
+    margin-top:15px;
+}
+
+@media(max-width:600px){
+
+    .timer{
+        gap:10px;
+    }
+
+    .time-box{
+        min-width:70px;
+        padding:15px;
+    }
+
+    .time-box h2{
+        font-size:24px;
+    }
+
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>👑 JANEK VIP</h1>
+    <p>Witaj Jan • Numer członkowski #008</p>
+</header>
+
+<nav class="navbar">
+    <button class="nav-btn active" onclick="showTab('tickets',this)">🎟️ Bilety</button>
+    <button class="nav-btn" onclick="showTab('menu',this)">🍿 Menu</button>
+    <button class="nav-btn" onclick="showTab('shows',this)">🎬 Seanse</button>
+    <button class="nav-btn" onclick="showTab('vip',this)">👑 Loża JANKÓW</button>
+    <button class="nav-btn" onclick="showTab('support',this)">❤️ Wesprzyj</button>
+</nav>
+
+<div class="content">
+
+    <!-- BILETY -->
+    <section id="tickets" class="section active">
+
+        <div class="card">
+            <div class="status">✔ Weryfikacja poprawna</div>
+
+            <div class="ticket-title">
+                <span class="vip">JANEK VIP</span>
+            </div>
+
+            <p>#008</p>
+            <br>
+
+            <p><strong>IKEA - Punkt Zbiórki</strong></p>
+            <p>02.08.2026 • 15:00</p>
+            <p>S8CC • Sala 1</p>
+
+            <details class="details">
+                <summary>Szczegóły biletu</summary>
+
+                <br>
+
+                <p><strong>Imię:</strong> Jan</p>
+                <p><strong>Nazwisko:</strong> Kowalski</p>
+                <p><strong>Numer biletu:</strong> #4025 5620 008</p>
+                <p><strong>Siedzenie:</strong> S8CC</p>
+
+                <br>
+
+                <p>
+                Popcorn Solony Chad 6,8L;<br>
+                Lipton Zielony 1,44L (UNLIMITED);<br>
+                Nachos Chad;<br>
+                Ramen Shoyu
+                </p>
+            </details>
+
+        </div>
+
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="section">
+
+        <div class="menu-grid">
+
+            <div class="card menu-item">
+                <h3>🍿 Popcorn</h3>
+                <p>MINI 1.8L — 28 zł</p>
+                <p>Mały 2.4L — 29 zł</p>
+                <p>Średni 3.8L — 30 zł</p>
+                <p>Chad 6.8L — 32 zł</p>
+            </div>
+
+            <div class="card menu-item">
+                <h3>🥤 Napoje</h3>
+                <p>0.5L — 22 zł</p>
+                <p>1L — 27 zł</p>
+                <p>1.44L — 30 zł</p>
+            </div>
+
+            <div class="card menu-item">
+                <h3>🌮 Nachos</h3>
+                <p>Średnie — 35 zł</p>
+                <p>Duże — 45 zł</p>
+                <p>Chad — 55 zł</p>
+            </div>
+
+            <div class="card menu-item">
+                <h3>🍜 Premium</h3>
+                <p>Ramen Shoyu — 74 zł</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SEANSE -->
+    <section id="shows" class="section">
+
+        <div class="card countdown">
+
+            <div class="movie-title">
+                IKEA - Punkt Zbiórki
+            </div>
+
+            <div class="timer">
+
+                <div class="time-box">
+                    <h2 id="days">0</h2>
+                    <span>Dni</span>
+                </div>
+
+                <div class="time-box">
+                    <h2 id="hours">0</h2>
+                    <span>Godz</span>
+                </div>
+
+                <div class="time-box">
+                    <h2 id="minutes">0</h2>
+                    <span>Min</span>
+                </div>
+
+                <div class="time-box">
+                    <h2 id="seconds">0</h2>
+                    <span>Sek</span>
+                </div>
+
+            </div>
+
+            <br>
+
+            <p>02.08.2026 • 15:00</p>
+
+        </div>
+
+    </section>
+
+    <!-- VIP -->
+    <section id="vip" class="section">
+
+        <div class="card">
+
+            <h2 class="vip">👑 Loża JANKÓW</h2>
+
+            <br>
+
+            <p>Status: <span class="vip">JANEK VIP</span></p>
+            <p>Poziom: ZŁOTY</p>
+            <p>Numer członkowski: #008</p>
+
+            <br>
+
+            <div class="stamps">
+                <div class="stamp used"></div>
+                <div class="stamp"></div>
+                <div class="stamp"></div>
+                <div class="stamp"></div>
+                <div class="stamp"></div>
+            </div>
+
+<p>Seanse VIP: 1 / 5.</p>
+<p>5 Seans VIP 50% taniej.</p>
+
+
+            <br>
+
+            <div class="benefit">🛋 Gwarancja kanapy</div>
+            <div class="benefit">🥤 Couch Console</div>
+            <div class="benefit">⚡ Priorytetowa obsługa</div>
+            <div class="benefit">🎟 10% zniżki na każdy seans</div>
+            <div class="benefit">💎 50% zniżki na co 5 seans VIP</div>
+            <div class="benefit">🍜 Naczynia i sztućce premium</div>
+            <div class="benefit">🪪 Karta VIP i konto członkowskie</div>
+            <div class="benefit">👑 Elitarny klub JANKÓW</div>
+
+        </div>
+
+    </section>
+
+    <!-- WSPARCIE -->
+    <section id="support" class="section">
+
+        <div class="card" style="text-align:center">
+
+            <h2>❤️ Wesprzyj twórcę</h2>
+
+            <br>
+
+            <p>Jeżeli podoba Ci się projekt, możesz wesprzeć jego rozwój.</p>
+
+            <div class="blik" id="blik">
+                123 456 789
+            </div>
+
+            <button class="copy-btn" onclick="copyBlik()">
+                Kopiuj numer BLIK
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+
+
+/* =========================
+   NAVIGATION (TABS)
+========================= */
+
+function showTab(id, btn){
+
+    localStorage.setItem("activeTab", id);
+
+    document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.display = 'none';
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+
+    requestAnimationFrame(() => {
+        el.classList.add('active');
+    });
+
+    btn.classList.add('active');
+
+    // 🔥 KLUCZ: odpalamy TYLKO tutaj
+    if(id === "vip"){
+        setTimeout(() => {
+            animateStamps();
+        }, 150); // mały delay = pewny render DOM
+    }
+}
+
+
+/* =========================
+   STAMPS SYSTEM (VIP) - ANIMATION
+========================= */
+
+
+
+/* =========================
+   RESTORE LAST TAB ON LOAD
+========================= */
+
+window.addEventListener("load", () => {
+
+    const savedTab = localStorage.getItem("activeTab");
+
+    if(savedTab){
+
+        const btn = [...document.querySelectorAll('.nav-btn')]
+            .find(b => b.getAttribute("onclick")?.includes(savedTab));
+
+        if(btn){
+            showTab(savedTab, btn);
+        }
+    }
+});
+
+
+/* =========================
+   BLIK COPY
+========================= */
+
+function copyBlik(){
+
+    const text = document.getElementById("blik").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Numer BLIK skopiowany!");
+}
+
+
+/* =========================
+   COUNTDOWN (SEANS)
+========================= */
+
+const targetDate = new Date("August 2, 2026 15:00:00").getTime();
+
+setInterval(() => {
+
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    document.getElementById("days").innerText =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    document.getElementById("hours").innerText =
+        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    document.getElementById("minutes").innerText =
+        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    document.getElementById("seconds").innerText =
+        Math.floor((distance % (1000 * 60)) / 1000);
+
+}, 1000);
+
+</script>
+
+</body>
+</html>
