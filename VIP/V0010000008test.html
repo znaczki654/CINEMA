@@ -508,8 +508,6 @@ function showTab(id, btn){
 
 function animateStamps(){
 
-    localStorage.removeItem("vipStamps");
-
     const stamps = document.querySelectorAll('.stamp');
 
     let saved = parseInt(localStorage.getItem("vipStamps"));
@@ -519,28 +517,37 @@ function animateStamps(){
         localStorage.setItem("vipStamps", "0");
     }
 
-    // 🔥 NAJWAŻNIEJSZE: ukryj wszystko NA START (żeby nie było flickera 4)
+    saved = Math.min(saved, stamps.length);
+
+    // 1. RESET UI (ukryj wszystko)
     stamps.forEach(s => {
         s.classList.remove("used", "pop");
         s.style.opacity = "0";
-        s.style.transform = "scale(0.6)";
+        s.style.transform = "scale(0.5)";
     });
 
-    // 🔥 render po frame (eliminuje "flash 4")
-    requestAnimationFrame(() => {
+    // 2. ANIMACJA PO KOLEI (TO JEST KLUCZ)
+    let i = 0;
 
-        for(let i = 0; i < saved; i++){
-            stamps[i].classList.add("used");
-            stamps[i].style.opacity = "1";
-            stamps[i].style.transform = "scale(1)";
-        }
+    function revealNext(){
 
-        // animacja next stamp
-        if(saved < stamps.length){
-            const el = stamps[saved];
-            el.classList.add("pop");
-        }
-    });
+        if(i >= saved) return;
+
+        const el = stamps[i];
+
+        el.style.transition = "all .25s ease";
+        el.style.opacity = "1";
+        el.style.transform = "scale(1)";
+
+        el.classList.add("used");
+
+        i++;
+
+        setTimeout(revealNext, 120); // tempo animacji
+    }
+
+    revealNext();
+}
 }
 
 /* =========================
