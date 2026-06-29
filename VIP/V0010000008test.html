@@ -508,6 +508,8 @@ function showTab(id, btn){
 
 function animateStamps(){
 
+    localStorage.removeItem("vipStamps");
+
     const stamps = document.querySelectorAll('.stamp');
 
     let saved = parseInt(localStorage.getItem("vipStamps"));
