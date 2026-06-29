@@ -465,59 +465,154 @@ summary{
 <script>
 
 
-function showTab(id,btn){
+let stampsAnimated = false;
 
+/* =========================
+   NAVIGATION (TABS)
+========================= */
 
-    document.querySelectorAll('.section')
-        .forEach(sec=>sec.classList.remove('active'));
+function showTab(id, btn){
 
-    document.querySelectorAll('.nav-btn')
-        .forEach(btn=>btn.classList.remove('active'));
+    // zapisz aktywną zakładkę
+    localStorage.setItem("activeTab", id);
 
-    document.getElementById(id).classList.add('active');
+    // ukryj wszystkie sekcje
+    document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.display = 'none';
+    });
+
+    // reset navbar
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    // pokaż wybraną sekcję
+    const el = document.getElementById(id);
+    el.style.display = 'block';
+
+    // animacja wejścia (stabilna)
+    requestAnimationFrame(() => {
+        el.classList.add('active');
+    });
+
+    // aktywny przycisk
     btn.classList.add('active');
 
+    // VIP ANIMACJA
+    if(id === "vip"){
+        animateStampsOnce();
+    }
 }
+
+
+/* =========================
+   STAMPS SYSTEM (VIP)
+========================= */
+
+function animateStampsOnce(){
+
+    const stamps = document.querySelectorAll('.stamp');
+
+    // ile zapisane w pamięci
+    let saved = parseInt(localStorage.getItem("vipStamps") || "0");
+
+    // zabezpieczenie zakresu
+    saved = Math.min(saved, stamps.length);
+
+    // RESET DOM (ważne — usuwa bug 4→5 i mruganie)
+    stamps.forEach(s => {
+        s.classList.remove("used", "pop");
+    });
+
+    // odtwórz zapisany stan (bez animacji)
+    for(let i = 0; i < saved; i++){
+        stamps[i].classList.add("used");
+    }
+
+    // animacja tylko raz na wejście do strony
+    if(sessionStorage.getItem("vipAnimPlayed")) return;
+    sessionStorage.setItem("vipAnimPlayed", "1");
+
+    let i = saved;
+
+    function next(){
+
+        if(i >= stamps.length) return;
+
+        stamps[i].classList.add("used", "pop");
+
+        localStorage.setItem("vipStamps", i + 1);
+
+        setTimeout(() => {
+            stamps[i].classList.remove("pop");
+            i++;
+            next();
+        }, 250);
+    }
+
+    next();
+}
+
+
+/* =========================
+   RESTORE LAST TAB ON LOAD
+========================= */
+
+window.addEventListener("load", () => {
+
+    const savedTab = localStorage.getItem("activeTab");
+
+    if(savedTab){
+
+        const btn = [...document.querySelectorAll('.nav-btn')]
+            .find(b => b.getAttribute("onclick")?.includes(savedTab));
+
+        if(btn){
+            showTab(savedTab, btn);
+        }
+    }
+});
+
+
+/* =========================
+   BLIK COPY
+========================= */
 
 function copyBlik(){
 
-    const text =
-    document.getElementById("blik").innerText;
+    const text = document.getElementById("blik").innerText;
 
     navigator.clipboard.writeText(text);
 
     alert("Numer BLIK skopiowany!");
 }
 
-const targetDate =
-new Date("August 2, 2026 15:00:00").getTime();
 
-setInterval(()=>{
+/* =========================
+   COUNTDOWN (SEANS)
+========================= */
+
+const targetDate = new Date("August 2, 2026 15:00:00").getTime();
+
+setInterval(() => {
 
     const now = new Date().getTime();
     const distance = targetDate - now;
 
-    const days =
-    Math.floor(distance/(1000*60*60*24));
+    document.getElementById("days").innerText =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
 
-    const hours =
-    Math.floor((distance%(1000*60*60*24))
-    /(1000*60*60));
+    document.getElementById("hours").innerText =
+        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-    const minutes =
-    Math.floor((distance%(1000*60*60))
-    /(1000*60));
+    document.getElementById("minutes").innerText =
+        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-    const seconds =
-    Math.floor((distance%(1000*60))
-    /1000);
+    document.getElementById("seconds").innerText =
+        Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours;
-    document.getElementById("minutes").innerText = minutes;
-    document.getElementById("seconds").innerText = seconds;
-
-},1000);
+}, 1000);
 
 </script>
 
