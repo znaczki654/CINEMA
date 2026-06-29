@@ -506,7 +506,39 @@ function showTab(id, btn){
    STAMPS SYSTEM (VIP)
 ========================= */
 
+function animateStamps(){
 
+    const stamps = document.querySelectorAll('.stamp');
+
+    let saved = parseInt(localStorage.getItem("vipStamps"));
+
+    if(isNaN(saved)){
+        saved = 0;
+        localStorage.setItem("vipStamps", "0");
+    }
+
+    saved = Math.min(saved, stamps.length);
+
+    // RESET UI
+    stamps.forEach(s => s.classList.remove("used", "pop"));
+
+    // render stanu
+    for(let i = 0; i < saved; i++){
+        stamps[i].classList.add("used");
+    }
+
+    // animuj tylko NASTĘPNĄ
+    if(saved < stamps.length){
+
+        const el = stamps[saved];
+
+        el.classList.add("pop");
+
+        setTimeout(() => {
+            el.classList.remove("pop");
+        }, 350);
+    }
+}
 
 /* =========================
    RESTORE LAST TAB ON LOAD
