@@ -510,7 +510,7 @@ function animateStamps(){
 
     const stamps = document.querySelectorAll('.stamp');
 
-    let saved = parseInt(localStorage.getItem("vipStamps") || "4");
+    let saved = parseInt(localStorage.getItem("vipStamps") || "0");
     saved = Math.min(saved, stamps.length);
 
     // 1. RESET WSZYSTKIEGO (KLUCZ)
