@@ -506,12 +506,11 @@ function showTab(id, btn){
    STAMPS SYSTEM (VIP)
 ========================= */
 
-function animateStampsOnce(){
+function animateStamps(){
 
     const stamps = document.querySelectorAll('.stamp');
 
-    // aktualny zapis (PRAWDA systemu)
-    let saved = parseInt(localStorage.getItem("vipStamps") || "0");
+    let saved = parseInt(localStorage.getItem("vipStamps") || "4"); 
     saved = Math.min(saved, stamps.length);
 
     // RESET UI
@@ -519,15 +518,15 @@ function animateStampsOnce(){
         s.classList.remove("used", "pop");
     });
 
-    // odtwórz stan BEZ animacji
+    // odtwórz stan (BEZ animacji)
     for(let i = 0; i < saved; i++){
         stamps[i].classList.add("used");
     }
 
-    // 🔥 ANIMACJA ZA KAŻDYM RAZEM
+    // animuj tylko „do końca”
     let i = saved;
 
-    function next(){
+    function step(){
 
         if(i >= stamps.length) return;
 
@@ -536,11 +535,11 @@ function animateStampsOnce(){
         setTimeout(() => {
             stamps[i].classList.remove("pop");
             i++;
-            next();
+            step();
         }, 250);
     }
 
-    next();
+    step();
 }
 
 
