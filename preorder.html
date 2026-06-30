@@ -354,45 +354,53 @@ h2{
 
 <script>
 
-/* ================= SCROLL ANIMATION ================= */
+    /* ================= SCROLL ANIMATION ================= */
 
-const sections = document.querySelectorAll("section");
+    const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("show");
-        }
+    const observer = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+            }
+        });
+    },{threshold:0.2});
+
+    sections.forEach(sec=>observer.observe(sec));
+
+
+    /* =========================
+    COUNTDOWN (SEANS)
+    ========================= */
+
+    const targetDate = new Date("July 5, 2026 23:00:00").getTime();
+
+    setInterval(() => {
+
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        document.getElementById("days").innerText =
+            Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        document.getElementById("hours").innerText =
+            Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        document.getElementById("minutes").innerText =
+            Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("seconds").innerText =
+            Math.floor((distance % (1000 * 60)) / 1000);
+
+    }, 1000);
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    window.addEventListener("load", () => {
+        window.scrollTo(0, 0);
     });
-},{threshold:0.2});
-
-sections.forEach(sec=>observer.observe(sec));
-
-
-/* =========================
-   COUNTDOWN (SEANS)
-========================= */
-
-const targetDate = new Date("July 5, 2026 23:00:00").getTime();
-
-setInterval(() => {
-
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    document.getElementById("days").innerText =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
-
-    document.getElementById("hours").innerText =
-        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-    document.getElementById("minutes").innerText =
-        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-    document.getElementById("seconds").innerText =
-        Math.floor((distance % (1000 * 60)) / 1000);
-
-}, 1000);
 </script>
 
 </body>
