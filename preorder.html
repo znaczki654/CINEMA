@@ -97,81 +97,59 @@ h2{
     display:block;
 }
 
-/* ================= MENU ================= */
+/* ================= SUPPORT ================= */
 
-.menu-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    width:100%;
-    max-width:1000px;
-}
-
-.card{
-    background:#141420;
-    padding:20px;
-    border-radius:15px;
-    transition:.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
-    background:#1c1c2d;
-}
-
-.card h3{
-    color:#FFD700;
-    margin-bottom:10px;
-}
-
-/* ================= VIP ================= */
-
-.vip-box{
-    background:linear-gradient(135deg,#1a1a1a,#0d0d0d);
-    padding:40px;
-    border-radius:20px;
-    width:90%;
-    max-width:800px;
-    text-align:center;
-    box-shadow:0 0 50px rgba(255,215,0,0.1);
-}
-
-.stamps{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin:20px 0;
-}
-
-.stamp{
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    border:2px solid #FFD700;
-    opacity:0.3;
-    transition:.3s;
-}
-
-.stamp.active{
+.copy-btn{
+    margin-top:15px;
     background:#FFD700;
-    opacity:1;
-    transform:scale(1.2);
+    color:black;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-/* ================= BILLET ================= */
-
-.ticket{
-    background:#111;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
+.copy-btn:hover{
+    opacity:.9;
 }
 
-.ticket span{
-    display:block;
-    margin:10px 0;
+.blik{
+    font-size:32px;
+    font-weight:bold;
+    color:#FFD700;
+    letter-spacing:3px;
+    margin-top:15px;
+}
+
+.support-note{
+    margin-top:25px;
     color:#aaa;
+    font-style:italic;
+    text-align: center;
 }
+
+.costs{
+    margin-top:35px;
+    text-align:left;
+}
+
+.costs h3{
+    text-align:center;
+    color:#FFD700;
+    margin-bottom:20px;
+}
+
+.cost-item{
+    padding:12px 0;
+    border-bottom:1px solid #333;
+    line-height:1.5;
+}
+
+.cost-item:last-child{
+    border-bottom:none;
+}
+
 
 /* ================= ANIMATION ================= */
 
@@ -281,32 +259,91 @@ h2{
     
 </section>
 
-<!-- MENU -->
-<section id="menu">
-    <h2>Wesprzyj projekt</h2>
+<!-- SUPPORT -->
+<!-- WSPARCIE -->
+    <section id="support" class="section">
 
-    <div class="menu-grid">
+        <div class="card" style="text-align:center">
 
-        <div class="card">
-            <h3>🍿 Popcorn</h3>
-            <p>Classic Salted</p>
-            <p>Butter Glow Edition</p>
-            <p>Chad Size 6.8L</p>
+            <h2>❤️ Wesprzyj twórcę</h2>
+
+            <br>
+
+            <p>Jeżeli podoba Ci się projekt, możesz wesprzeć jego rozwój.</p>
+            <p>Wystarczy, zrobić przelew BLIK na poniższy numer:</p>
+
+            <div class="blik" id="blik">
+                516 618 819
+            </div>
+
+            <button class="copy-btn" onclick="copyBlik()">
+                Kopiuj numer BLIK
+            </button>
+            
+            <div class="costs">
+
+                <h3>📊 Dotychczasowe koszty projektu</h3>
+
+                <div class="cost-item">
+                    <strong>19,99 – 36,16 € / mies.</strong><br>
+                    Od 25.12.2024 do 30.06.2026: <strong>408,08€, ok. 1 741,69 zł</strong><br>
+                    Licencja na oprogramowanie Adobe do montażu filmów, edycji grafik oraz tworzenia grafiki wektorowej.
+                </div>
+
+                <div class="cost-item">
+                    <strong>300 zł</strong><br>
+                    Testowanie herbaty Hestona Blumenthala
+                </div>
+
+                <div class="cost-item">
+                    <strong>300 zł</strong><br>
+                    Przygotowania do ramen
+                </div>
+
+                <div class="cost-item">
+                    <strong>200 zł</strong><br>
+                    Składniki na popcorn, nachosy i testy pojemności
+                </div>
+
+                <div class="cost-item">
+                    <strong>400 zł</strong><br>
+                    Wiaderka
+                </div>
+
+                <div class="cost-item">
+                    <strong>300 zł</strong><br>
+                    Naczynia i sztućce
+                </div>
+
+                <div class="cost-item">
+                    <strong>200 zł</strong><br>
+                    Bilety, karty VIP i akcesoria
+                </div>
+
+                <div class="cost-item">
+                    <strong>700 zł</strong><br>
+                    Couch Console
+                </div>
+
+                <div class="cost-item">
+                    <strong>500 zł</strong><br>
+                    DJI Mic Mini
+                </div>
+
+                <div class="cost-item">
+                    <strong>700 zł</strong><br>
+                    DJI Osmo Mobile 7P
+                </div>
+
+            </div>
+
+            <p class="support-note">
+                Każde wsparcie pomaga rozwijać projekt i tworzyć kolejne seanse.
+            </p>
         </div>
 
-        <div class="card">
-            <h3>🥤 Drinks</h3>
-            <p>Unlimited Refill</p>
-            <p>Ice Cold Signature Bottle</p>
-        </div>
 
-        <div class="card">
-            <h3>🌮 Nachos</h3>
-            <p>Cheese / Salsa / Mix</p>
-        </div>
-
-    </div>
-</section>
+    </section>
 
 <script>
 
