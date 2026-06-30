@@ -109,7 +109,7 @@ header p{
     font-weight:bold;
     */
     background: linear-gradient(90deg, #FFD700, #fff3a0, #FFD700);
-    -webkit-background-clip: text;
+    /*-webkit-background-clip: text;*/
     -webkit-text-fill-color: transparent;
     font-weight:bold;
 }
@@ -242,6 +242,34 @@ summary{
     letter-spacing:3px;
     margin-top:15px;
 }
+
+.support-note{
+    margin-top:25px;
+    color:#aaa;
+    font-style:italic;
+}
+
+.costs{
+    margin-top:35px;
+    text-align:left;
+}
+
+.costs h3{
+    text-align:center;
+    color:#FFD700;
+    margin-bottom:20px;
+}
+
+.cost-item{
+    padding:12px 0;
+    border-bottom:1px solid #333;
+    line-height:1.5;
+}
+
+.cost-item:last-child{
+    border-bottom:none;
+}
+
 
 @media(max-width:600px){
 
@@ -451,24 +479,64 @@ summary{
             <p>Wystarczy, zrobić przelew BLIK na poniższy numer:</p>
 
             <div class="blik" id="blik">
-                516 618 819
+                123 456 789
             </div>
 
             <button class="copy-btn" onclick="copyBlik()">
                 Kopiuj numer BLIK
             </button>
-            <br>
-            <p>Dla kontekstu, które poniosłem podczas tworzenia projektu:</p>
-            <p>19,99 - 36,16€ /msc - licencja na oprogramowanie do montażu filmu.</p>
-            <p>~100 - 200 zł - testując herbatę Hestona Blumenthala.</p>
-            <p>~300 zł - Przygotowania Ramen.</p>
-            <p>~200 zł - Składniki na popcorn, nachosy, testy, sprawdzanie pojemności.</p>
-            <p>~400 zł - Wiaderka.</p>
-            <p>~200 zł - naczynia i sztućce.</p>
-            <p>~200 zł - Bilety, karty VIP, akcesoria.</p>
-            <p>~400 zł - Couch Console.</p>
+            
+            <div class="costs">
+
+                <h3>📊 Dotychczasowe koszty projektu</h3>
+
+                <div class="cost-item">
+                    <strong>19,99–36,16 € / mies.</strong><br>
+                    Licencja na oprogramowanie do montażu filmu
+                </div>
+
+                <div class="cost-item">
+                    <strong>100–200 zł</strong><br>
+                    Testowanie herbaty Hestona Blumenthala
+                </div>
+
+                <div class="cost-item">
+                    <strong>300 zł</strong><br>
+                    Przygotowania do ramen
+                </div>
+
+                <div class="cost-item">
+                    <strong>200 zł</strong><br>
+                    Składniki na popcorn, nachosy i testy pojemności
+                </div>
+
+                <div class="cost-item">
+                    <strong>400 zł</strong><br>
+                    Wiaderka
+                </div>
+
+                <div class="cost-item">
+                    <strong>200 zł</strong><br>
+                    Naczynia i sztućce
+                </div>
+
+                <div class="cost-item">
+                    <strong>200 zł</strong><br>
+                    Bilety, karty VIP i akcesoria
+                </div>
+
+                <div class="cost-item">
+                    <strong>400 zł</strong><br>
+                    Couch Console
+                </div>
+
+            </div>
 
         </div>
+
+        <p class="support-note">
+            Każde wsparcie pomaga rozwijać projekt i tworzyć kolejne seanse.
+        </p>
 
     </section>
 
