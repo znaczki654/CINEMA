@@ -66,14 +66,7 @@ section{
     justify-content:center;
     flex-direction:column;
     padding:80px 20px;
-    opacity:0;
-    transform:translateY(60px);
     transition:1s ease;
-}
-
-section.show{
-    opacity:1;
-    transform:translateY(0);
 }
 
 h2{
@@ -394,13 +387,6 @@ h2{
 
     }, 1000);
 
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
-
-    window.addEventListener("load", () => {
-        window.scrollTo(0, 0);
-    });
 </script>
 
 </body>
