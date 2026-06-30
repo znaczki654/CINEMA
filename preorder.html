@@ -379,6 +379,19 @@ setInterval(() => {
 
 }, 1000);
 
+/* =========================
+   BLIK COPY
+========================= */
+
+function copyBlik(){
+
+    const text = document.getElementById("blik").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Numer BLIK skopiowany!");
+}
+
 </script>
 
 </body>
