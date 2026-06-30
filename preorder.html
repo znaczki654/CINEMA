@@ -208,10 +208,10 @@ h2{
 
 <!-- HERO -->
 <div class="hero">
-    <h1>JANEK CINEMA</h1>
-    <p>Experience beyond cinema</p>
+    <h1>JANEKINO</h1>
+    <p>Więcej niż tylko kino.</p>
     <button class="btn" onclick="document.getElementById('trailer').scrollIntoView({behavior:'smooth'})">
-        Watch Trailer
+        Zobacz trailer
     </button>
 </div>
 
@@ -253,9 +253,13 @@ h2{
 
             <br>
 
-            <p>05.07.2026 • 15:00</p>
+            <p>05.07.2026 • 23:00</p>
 
         </div>
+
+        <button class="btn" onclick="document.getElementById('support').scrollIntoView({behavior:'smooth'})">
+            Wesprzyj twórcę
+        </button>
 
     
 </section>
@@ -367,7 +371,7 @@ sections.forEach(sec=>observer.observe(sec));
    COUNTDOWN (SEANS)
 ========================= */
 
-const targetDate = new Date("July 5, 2026 15:00:00").getTime();
+const targetDate = new Date("July 5, 2026 23:00:00").getTime();
 
 setInterval(() => {
 
