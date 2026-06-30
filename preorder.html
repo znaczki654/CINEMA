@@ -68,17 +68,6 @@ section{
     padding:80px 20px;
 }
 
-/* animacja tylko wizualna, NIE layout */
-section .card{
-    opacity:0;
-    transform:translateY(40px);
-    transition:1s ease;
-}
-
-section.show .card{
-    opacity:1;
-    transform:translateY(0);
-}
 
 h2{
     font-size:42px;
@@ -361,20 +350,6 @@ h2{
 if ('scrollRestoration' in history) {
     history.scrollRestoration = "manual";
 }
-
-/* ================= ANIMATION ================= */
-
-const sections = document.querySelectorAll("section");
-
-const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("show");
-        }
-    });
-},{threshold:0.2});
-
-sections.forEach(sec=>observer.observe(sec));
 
 /* ================= COUNTDOWN ================= */
 
